@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "portfolio-judge"
+version = "0.1.0"
+description = "Role-calibrated LLM-as-judge portfolio review for AI engineering candidates — prose + code + structural + multi-persona synthesis."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Thomas Kuhns" }]
+keywords = [
+    "llm-as-judge",
+    "evals",
+    "portfolio-review",
+    "ai-engineering",
+    "rubric",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "anthropic>=0.40.0",
+    "openai>=1.50.0",
+    "google-genai>=0.3.0",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "httpx>=0.27",
+    "click>=8.1",
+    "rich>=13.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "pytest-mock>=3.12",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+portfolio-judge = "portfolio_judge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/tjkuhns/portfolio-judge"
+Repository = "https://github.com/tjkuhns/portfolio-judge"
+Issues = "https://github.com/tjkuhns/portfolio-judge/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/portfolio_judge"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]  # line length is handled by formatter; allow slightly over in comments
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
