@@ -1,8 +1,15 @@
-# Calibration trials — Phase 1
+# Calibration trials
 
-Verbatim outputs from running `portfolio-judge review` against 10 externally-sourced repositories across three quality tiers. Modeled on [SWE-bench `experiments/`](https://github.com/SWE-bench/experiments) — the only pattern I could find for publishing eval outputs in-repo. Do not treat this as human-validated calibration; treat it as a published first pass whose weird results the community is invited to critique.
+Verbatim outputs from running `portfolio-judge review` against externally-sourced repositories. Modeled on [SWE-bench `experiments/`](https://github.com/SWE-bench/experiments) — the only pattern I could find for publishing eval outputs in-repo. Do not treat this as human-validated calibration; treat it as a published first pass whose weird results the community is invited to critique.
 
-**Phase 1 status:** N=10 target repos, 1 run each, Claude Sonnet 4 judge (`claude-sonnet-4-20250514`), temperature=0 for component scoring and 0.3 for persona + synthesis. All runs from 2026-04-19. Total cost ≈ $1.80.
+**Two phases:**
+
+- **Phase 1** — 10 externally-sourced repos across 3 tiers (top community-canonical exemplars / middle mature AI projects / low hobbyist attempts). Tested whether the tool discriminates at extremes.
+- **Phase 2** — 10 portfolio-shaped individual AI engineering repos from `topic:ai-portfolio` and similar queries. Tested whether the tool differentiates **within** the portfolio-shaped category (the niche the tool is actually scoped for).
+
+**Phase 1 status:** N=10, 1 run each, Claude Sonnet 4 judge (`claude-sonnet-4-20250514`), temperature=0 for component scoring and 0.3 for persona + synthesis. 2026-04-19. Cost ≈ $1.80.
+
+**Phase 2 status:** N=10, same config, 2026-04-19. Cost ≈ $1.50.
 
 ## The methodology question this set out to answer
 
@@ -16,7 +23,7 @@ External criteria only — no author intuition. See [`../evidence/research_sourc
 - **Middle tier (3)**: mature, popular, AI-adjacent OSS projects with mixed signals — known-critiqued architectures, smaller teams, or author-exemplar repos outside their canonical flagship.
 - **Low tier (3)**: first three repos (no cherry-picking) matching GitHub search `"ai portfolio" language:Python stars:<20`, filtered for "self-labeled AI portfolio project." Low-tier repos are anonymized in the committed outputs to avoid publicly rating individual hobbyist work; the search query + date are recorded so the sample is reproducible.
 
-## Summary — all 10 verdicts
+## Phase 1 summary — 10 externally-sourced repos, 3 tiers
 
 | Tier | Repo | Convergent verdict | Percentile estimate |
 |---|---|---|---|
@@ -32,6 +39,41 @@ External criteria only — no author intuition. See [`../evidence/research_sourc
 | Low | [low_10](low_10/) | REJECT — 9-word README, no production hygiene | Bottom 15th |
 
 For comparison, the [Explodable dogfood review](../examples/explodable_full_review/) — the builder's own AI portfolio repo — scored **90–95th percentile for Applied AI Engineer**.
+
+## Phase 2 summary — 10 portfolio-shaped individual AI engineering repos
+
+Phase 2 sampling: combined `topic:ai-portfolio` + `"ai portfolio" language:python` queries, excluded Phase 1 targets, filtered for individual AI engineering portfolios (excluded finance/trading, frameworks, tools). Took first 10 matching the filter. All anonymized — Phase 2 targets are individual hobbyist / career-switcher portfolios, naming them publicly rates strangers' job-hunt artifacts.
+
+| Trial | Convergent verdict | Percentile estimate |
+|---|---|---|
+| [phase2_01](phase2_01/) | **ADVANCE TO PHONE SCREEN** — strong applied AI candidate with exceptional eval methodology + production code | **80–85th** |
+| [phase2_02](phase2_02/) | Partial — technical depth, but testing/customer-communication gaps | **75th** |
+| [phase2_03](phase2_03/) | REJECT — tutorial-level RAG, domain-overclaim in safety-critical space | 15–25th |
+| [phase2_04](phase2_04/) | REJECT — tutorial-level ML work masquerading as AI engineering | Bottom 15th |
+| [phase2_05](phase2_05/) | REJECT — OpenAI API wrapper with clean FastAPI but zero production signal | Bottom 15th |
+| [phase2_06](phase2_06/) | REJECT — demo-quality RAG, no eval, overclaimed "agent" framing | Bottom 15–20th |
+| [phase2_07](phase2_07/) | REJECT — marketing automation framed as AI engineering | Bottom 15th |
+| [phase2_08](phase2_08/) | REJECT — structured thinking but no production readiness or measurement | Bottom 20–25th |
+| [phase2_09](phase2_09/) | REJECT — beginner ML coursework framed as production work | Bottom 15th |
+| [phase2_10](phase2_10/) | REJECT — basic API wrapper, no eval, no production readiness | Bottom 15th |
+
+## The finding Phase 2 establishes — within-category differentiation works
+
+Phase 1 left open the question of whether the tool rubber-stamps *anything* portfolio-shaped. Phase 2 answers: no. Across 10 portfolio-shaped targets:
+
+- **1 ADVANCE** at 80–85th (phase2_01 — a genuinely strong RAG eval framework)
+- **1 partial** at 75th (phase2_02 — agentic RAG with measurable depth but execution gaps)
+- **8 REJECTs** spread across Bottom 15–25th
+
+That is real within-category differentiation. The tool is not rubber-stamping the portfolio shape — it's distinguishing portfolios with eval methodology + production discipline from portfolios that are tutorial-level API wrappers.
+
+**Explodable's 90–95 is no longer alone.** phase2_01 scored 80–85th — a non-self-review ADVANCE from a stranger's portfolio. That materially reduces the self-flattery concern: the tool now has at least one externally-sourced high-scoring portfolio, and Explodable's higher score could plausibly reflect real additional depth (calibrated eval harness, ADR governance, 59-test CI suite, methodology writeup) rather than only self-referential bias. Note "plausibly" — still not proven.
+
+**What Phase 2 still does NOT establish:**
+- Hiring-outcome calibration (no outcome data on any Phase 2 portfolio)
+- That the 80–85 / 75 / 15–25 bands correspond to real-world hiring percentiles (they're persona-predicted, not observed)
+- Multi-run stability (each trial is a single Sonnet run; no re-run variance test)
+- That the gap between Explodable (90–95) and the highest Phase 2 result (phase2_01, 80–85) is "real differentiation" vs. residual self-referential bias
 
 ## The self-referential calibration problem — disclosed openly
 

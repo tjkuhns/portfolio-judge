@@ -1,0 +1,30 @@
+target_repo: anonymized
+anonymization_reason: |
+  Phase 2 targets are self-labeled individual AI engineering portfolios —
+  mostly career switchers, hobbyists, and students. Naming them publicly
+  rates strangers' personal job-hunt artifacts. The sample queries + date
+  are recorded below so the sample is reproducible; individual repos are
+  not named.
+sample_source:
+  queries:
+    - 'gh search repos --topic ai-portfolio --language python'
+    - 'gh search repos "ai portfolio" --language python --sort stars'
+  queried: 2026-04-19
+  selection_rule: |
+    Combined results from both queries, deduped, excluded 3 Phase 1 low-tier
+    targets. Filtered for "individual AI engineering portfolio" (excluded
+    finance/trading portfolios, framework/tool repos). Took first 10 matching
+    the filter across the effort spectrum (stars range 0-3 dominant).
+trial_date: 2026-04-19
+rubric_version:
+  prose: prose_default v0.1.0
+  code: code_default v0.1.0
+judge_model: claude-sonnet-4-20250514
+temperature:
+  component_judges: 0.0
+  personas_and_synthesis: 0.3
+role: applied-ai
+portfolio_judge_version: 0.1.0
+tier: phase2_within_portfolio_category
+cost_usd_approx: 0.15
+runtime_seconds_approx: 90
