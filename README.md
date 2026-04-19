@@ -15,6 +15,22 @@ I've been building evaluated AI systems while hunting for an Applied AI Engineer
 
 The honest gap in this methodology is the lack of human-review calibration. Open-sourcing because running this on your portfolio and telling me where the verdicts are wrong is the fastest way to close that gap.
 
+## Who this is for
+
+This tool was built for people who have an *explicit portfolio repo* — one repo consolidating "here is my AI engineering work" — typically built because they're actively job-hunting into an AI engineering / Applied AI / FDE / Solutions / DevRel role. Specifically:
+
+- **Career switchers** moving into AI engineering from adjacent fields (software, data, product, ops)
+- **Bootcamp graduates** (Maven AI Evals cohort, Fast.ai, Zero to Mastery AI track, Springboard ML)
+- **University AI/DS capstone students** preparing for the job market
+- **Self-taught practitioners** who've built intentional portfolio repos and want structured pre-submission feedback
+
+This tool is **NOT** for:
+
+- **Evaluating accumulated public bodies of work** (blog + multiple project repos + GitHub profile + talks). Most established AI engineers don't have single portfolio repos — their portfolios are their accumulated work. [Phase 1 calibration](calibration/README.md) documents this explicitly: canonical exemplars (Willison, Yan, Huyen) got low percentile scores because their repos are tools/books/curations, not portfolio-shaped.
+- **Framework / library / tool repos** being submitted for evaluation as "my portfolio" — the tool correctly flags this as a category error.
+- **Predicting actual hiring outcomes** — there is no hiring-outcome calibration yet.
+- **Replacing human review** — the code judge pattern-matches on surface features of good code and cannot distinguish code that *is* good from code that *looks* good. See [What this tool does NOT measure](evidence/methodology.md#what-this-tool-does-not-measure).
+
 ## What it does
 
 Four runnable entry points:
@@ -57,7 +73,7 @@ Model shortcuts: `--model sonnet | opus | haiku | gpt-4.1 | gpt-5 | gemini | gem
 - **Grounding** (`src/portfolio_judge/grounding.md`) — 2025-26 hiring heuristics distilled from Hamel Husain, Shreya Shankar, Eugene Yan, Chip Huyen, Simon Willison, and Anthropic's candidate-AI guidance.
 - **Model-agnostic** — Anthropic / OpenAI / Google Gemini supported via thin adapters (no `litellm`, no LangChain). `--model` picks the provider; provider defaults are Sonnet, GPT-4.1, Gemini 2.0 Flash.
 
-Full methodology: [`evidence/methodology.md`](evidence/methodology.md). **Start with the ["What this tool does NOT measure"](evidence/methodology.md#what-this-tool-does-not-measure) section — the tool cannot distinguish code that is actually good from code that merely looks good, and that's important before citing any score.** Calibration state per component: [`evidence/calibration_state.md`](evidence/calibration_state.md). Research sources: [`evidence/research_sources.md`](evidence/research_sources.md). Roadmap: [`ROADMAP.md`](ROADMAP.md).
+Full methodology: [`evidence/methodology.md`](evidence/methodology.md). **Start with the ["What this tool does NOT measure"](evidence/methodology.md#what-this-tool-does-not-measure) section — the tool cannot distinguish code that is actually good from code that merely looks good, and that's important before citing any score.** Calibration state per component: [`evidence/calibration_state.md`](evidence/calibration_state.md). Calibration trials (Phase 1): [`calibration/README.md`](calibration/README.md). Research sources: [`evidence/research_sources.md`](evidence/research_sources.md). Design decisions traced to research: [`evidence/design_decisions.md`](evidence/design_decisions.md). Roadmap: [`ROADMAP.md`](ROADMAP.md).
 
 ## Customize
 

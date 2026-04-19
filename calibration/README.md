@@ -33,6 +33,23 @@ External criteria only — no author intuition. See [`../evidence/research_sourc
 
 For comparison, the [Explodable dogfood review](../examples/explodable_full_review/) — the builder's own AI portfolio repo — scored **90–95th percentile for Applied AI Engineer**.
 
+## The self-referential calibration problem — disclosed openly
+
+**My portfolio (Explodable) scored 90–95th percentile. The tool was built by someone (me) who was reviewing that same portfolio while designing the personas. That is a real problem and it needs to be named directly, not hidden in a caveats footer.**
+
+The four reviewer personas in this tool were not designed from a blank slate. They were designed partly by observing what a good Applied AI portfolio *appears* to need, and the portfolio I had closest at hand was mine. When I then ran the tool on Explodable and it scored 90–95th percentile, that is not independent evidence the tool works. It is partial evidence that the personas learned what Explodable looks like and then rewarded a portfolio shaped exactly that way.
+
+The Phase 1 calibration in this directory shows the tool discriminates at extremes — it rejects frameworks, paper curations, and low-effort hobbyist attempts. What it does *not* establish is whether the tool differentiates meaningfully *within* the portfolio-shaped category, because Explodable is currently the only portfolio-shaped target in the sample. Every other repo in Phase 1 was wrong-shape in some way (tool, library, book promo, curated list, beginner scratchpad).
+
+**What would close this gap:**
+
+- **Phase 2 calibration** — 10 repos sampled from `topic:ai-portfolio` or similar, all portfolio-shaped, across an effort spectrum. If Explodable still scores meaningfully higher than portfolio-shaped peers, that's either real differentiation or a deeper design-time bias Phase 2 doesn't reach. Planned.
+- **Third-party cohort calibration** — a bootcamp running this on a cohort of portfolios against their own instructor reviews + placement outcomes. This is the only source of actually-external calibration the tool can acquire, and why the soft-launch is in part a request for collaborators.
+
+**What not to read into the 90–95 number:** not that the builder's portfolio is in the top 5–10% of AI engineering portfolios globally. Read it as: the tool's personas, when applied to the portfolio whose shape partly informed them, return a high score. That's a weaker statement than "Explodable is a top portfolio," and it is the only statement Phase 1 data supports.
+
+---
+
 ## The surprising finding
 
 **The tool rejects every "top tier" exemplar as a portfolio for Applied AI Engineer roles.** This is not a calibration failure. It is evidence the tool discriminates more narrowly than expected:

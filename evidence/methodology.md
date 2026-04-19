@@ -72,6 +72,8 @@ Shankar et al. (*[Who Validates the Validators?](https://arxiv.org/abs/2404.1227
 
 **Verdicts track the rubric, not ground truth.** The persona reviewers are grounded in hiring-heuristic research (Husain, Shankar, Yan, Huyen). Their output predicts what a hiring manager *should* say given the rubric; it does not measure what a hiring manager *would actually* say, because there is no hiring-outcome calibration data. A portfolio can score well and still fail in interview; a portfolio can score weak and succeed through connections, demeanor, or factors the tool cannot see.
 
+**Prior-knowledge bias in persona design.** The four reviewer personas were not designed from a blank slate — they were designed by a builder who had his own portfolio (Explodable) in view while writing the persona prompts. When the tool runs on Explodable, the personas naturally tune toward signals that portfolio exhibits, which is why [Phase 1 calibration](../calibration/README.md#the-self-referential-calibration-problem--disclosed-openly) returns a 90–95th percentile score for the builder's own repo. That score is *not* independent evidence the tool works. Phase 2 calibration across portfolio-shaped peers is the next step; third-party cohort data from bootcamps is the calibration this release is actively soliciting.
+
 **What closes these gaps, for the reader who wants to use the tool honestly:**
 
 - For code quality verification: run the code. Run the tests. Type-check with Pyright or mypy. Lint with Ruff. These catch execution-adjacent failures the LLM judge does not. (See [`ROADMAP.md`](../ROADMAP.md) — deterministic execution-adjacent checks are v0.2.0 scope.)
