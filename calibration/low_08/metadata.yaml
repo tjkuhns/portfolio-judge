@@ -1,0 +1,30 @@
+target_repo: anonymized
+anonymization_reason: |
+  Low-tier sample is drawn from self-labeled AI portfolio repos by individual
+  hobbyists with low stars, no CI, and no tests. Naming them publicly would
+  rate strangers' personal work as "low quality" without adding analytical
+  value. The sample query + date are recorded so the sample is reproducible;
+  individual repos are not named.
+sample_source:
+  query: 'gh search repos "ai portfolio" --language python --stars "<20"'
+  queried: 2026-04-19
+  selection_rule: |
+    First three repos in the search result that matched all of:
+    - Self-labeled AI/LLM portfolio project
+    - Active enough to have been pushed in last 12 months
+    - No CI config (.github/workflows absent)
+    - No tests/ directory
+    - README-only documentation
+trial_date: 2026-04-19
+rubric_version:
+  prose: prose_default v0.1.0
+  code: code_default v0.1.0
+judge_model: claude-sonnet-4-20250514
+temperature:
+  component_judges: 0.0
+  personas_and_synthesis: 0.3
+role: applied-ai
+portfolio_judge_version: 0.1.0
+tier: low
+runtime_seconds_approx: 60
+cost_usd_approx: 0.10

@@ -1,0 +1,17 @@
+target_repo: https://github.com/simonw/llm
+target_commit_sha: 1bfb96d
+trial_date: 2026-04-19
+rubric_version:
+  prose: prose_default v0.1.0
+  code: code_default v0.1.0
+judge_model: claude-sonnet-4-20250514
+temperature:
+  component_judges: 0.0
+  personas_and_synthesis: 0.3
+role: applied-ai
+portfolio_judge_version: 0.1.0
+tier: top
+inclusion_rationale: |
+  Named community-canonical exemplar — Willison's AI-native CLI tool.
+runtime_seconds_approx: 90
+cost_usd_approx: 0.15

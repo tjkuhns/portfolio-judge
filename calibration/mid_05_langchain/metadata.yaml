@@ -1,0 +1,17 @@
+target_repo: https://github.com/langchain-ai/langchain
+target_commit_sha: 8fec4e7
+trial_date: 2026-04-19
+rubric_version:
+  prose: prose_default v0.1.0
+  code: code_default v0.1.0
+judge_model: claude-sonnet-4-20250514
+temperature:
+  component_judges: 0.0
+  personas_and_synthesis: 0.3
+role: applied-ai
+portfolio_judge_version: 0.1.0
+tier: mid
+inclusion_rationale: |
+  Mature popular AI project with known architectural critiques — mixed-signal middle tier.
+runtime_seconds_approx: 90
+cost_usd_approx: 0.15
