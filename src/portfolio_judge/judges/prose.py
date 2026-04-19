@@ -13,7 +13,6 @@ is the calibration mechanism this release is soliciting.
 
 from __future__ import annotations
 
-from importlib import resources
 from pathlib import Path
 
 from portfolio_judge.core.llm import Provider
@@ -29,29 +28,11 @@ methodology_disclosure as 3 (neutral) rather than penalizing its absence."""
 
 
 def default_rubric_path() -> Path:
-    """Path to the shipped default prose rubric."""
-    # rubrics/ lives at the repo root (not inside the installable package).
-    # For an installed package we need to ship the YAML via package-data;
-    # for a src-checkout, resolve relative to the repo root.
-    from_pkg = _try_package_rubric("prose_default.yaml")
-    if from_pkg is not None:
-        return from_pkg
+    """Path to the shipped default prose rubric (inside the installed package)."""
     here = Path(__file__).resolve()
-    # src/portfolio_judge/judges/prose.py → repo root is three parents up.
-    repo_root = here.parents[3]
-    return repo_root / "rubrics" / "prose_default.yaml"
-
-
-def _try_package_rubric(filename: str) -> Path | None:
-    try:
-        ref = resources.files("portfolio_judge.rubrics").joinpath(filename)
-        # resources.files returns a Traversable; cast to path for Rubric.load.
-        with resources.as_file(ref) as p:
-            if p.exists():
-                return p
-    except (ModuleNotFoundError, FileNotFoundError):
-        return None
-    return None
+    # src/portfolio_judge/judges/prose.py → package root is one parent up.
+    pkg_root = here.parent.parent
+    return pkg_root / "rubrics" / "prose_default.yaml"
 
 
 async def review_prose(

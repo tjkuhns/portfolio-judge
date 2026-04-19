@@ -58,6 +58,10 @@ Issues = "https://github.com/tjkuhns/portfolio-judge/issues"
 [tool.hatch.build.targets.wheel]
 packages = ["src/portfolio_judge"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"src/portfolio_judge/rubrics" = "portfolio_judge/rubrics"
+"src/portfolio_judge/personas" = "portfolio_judge/personas"
+
 [tool.ruff]
 line-length = 100
 target-version = "py310"

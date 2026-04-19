@@ -18,7 +18,6 @@ https://github.com/braintrustdata/autoevals/issues/185
 
 from __future__ import annotations
 
-from importlib import resources
 from pathlib import Path
 
 from portfolio_judge.core.llm import Provider
@@ -34,24 +33,10 @@ Cite specific line numbers or identifiers when reasoning."""
 
 
 def default_rubric_path() -> Path:
-    """Path to the shipped default code rubric."""
-    from_pkg = _try_package_rubric("code_default.yaml")
-    if from_pkg is not None:
-        return from_pkg
+    """Path to the shipped default code rubric (inside the installed package)."""
     here = Path(__file__).resolve()
-    repo_root = here.parents[3]
-    return repo_root / "rubrics" / "code_default.yaml"
-
-
-def _try_package_rubric(filename: str) -> Path | None:
-    try:
-        ref = resources.files("portfolio_judge.rubrics").joinpath(filename)
-        with resources.as_file(ref) as p:
-            if p.exists():
-                return p
-    except (ModuleNotFoundError, FileNotFoundError):
-        return None
-    return None
+    pkg_root = here.parent.parent
+    return pkg_root / "rubrics" / "code_default.yaml"
 
 
 async def review_code(
