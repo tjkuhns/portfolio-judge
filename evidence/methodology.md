@@ -58,7 +58,29 @@ The essay-judge calibration was for a specific register (consulting-quality B2B 
 - Temperature = 0 for scorers.
 - Disclosed-limits-in-line register (the Husain/Shankar genre convention — see the calibration-state doc for the disclosures this release ships with).
 
-## Failure modes (known)
+## What this tool does NOT measure
+
+This is the most important section in this document. Read it before citing any score the tool produces.
+
+**The tool cannot distinguish code that is actually good from code that merely looks good.** The code judge reads the source; it does not execute it, does not import it, does not run its tests, does not check if the algorithm is correct, does not know if an abstraction is load-bearing or gratuitous, does not know whether the code interfaces correctly with the rest of the system. The judge pattern-matches on the surface features of good code — clear docstrings, type hints, consistent naming, modular structure, thoughtful-looking error handling, tests that exist. All of those signals can be present while the code solves the wrong problem, uses the wrong algorithm, or silently fails at runtime.
+
+Shankar et al. (*[Who Validates the Validators?](https://arxiv.org/abs/2404.12272)*, NAACL 2025) names the general version of this failure mode "vanity dashboards" — LLM judges that track surface rubric signals while missing ground-truth quality. For subjective code quality specifically, there is less calibration data than for prose — making the code judge's scores weaker evidence than the prose judge's scores, not stronger.
+
+**The circular-flattery risk for AI-generated code.** If you use an LLM to write code and a different LLM to judge it, the judge is evaluating whether the code has the surface features that the generator was trained to produce. The generator is reliably good at producing those features. The judge is reliably good at recognizing them. The resulting high score is not evidence that the code works — it is evidence that the two LLMs agree on what good code looks like, which they often do, because they were trained on overlapping data. The example scores in this repo (`judge.py` at 30/30, `rubric.py` at 29/30) should be read through this lens: they are consistent with either "the code is excellent" or "the code has the surface signals and the judge recognized them." Without execution or human review, this ambiguity is not resolvable.
+
+**The structural scanner counts; it does not verify.** `tests_present` passes if the `tests/` directory contains at least one `test_*.py` file. It does not run the tests. It does not verify the tests cover anything meaningful. A repo with 100 trivially-passing assertions will pass `tests_present` identically to a repo with 100 well-targeted tests against the risky modules. The checks are useful as signal that shipping discipline exists; they are not evidence that the discipline is load-bearing.
+
+**Verdicts track the rubric, not ground truth.** The persona reviewers are grounded in hiring-heuristic research (Husain, Shankar, Yan, Huyen). Their output predicts what a hiring manager *should* say given the rubric; it does not measure what a hiring manager *would actually* say, because there is no hiring-outcome calibration data. A portfolio can score well and still fail in interview; a portfolio can score weak and succeed through connections, demeanor, or factors the tool cannot see.
+
+**What closes these gaps, for the reader who wants to use the tool honestly:**
+
+- For code quality verification: run the code. Run the tests. Type-check with Pyright or mypy. Lint with Ruff. These catch execution-adjacent failures the LLM judge does not. (See [`ROADMAP.md`](../ROADMAP.md) — deterministic execution-adjacent checks are v0.2.0 scope.)
+- For hiring-outcome calibration: take the verdict as one input, not as a certificate. Pair it with human review from someone whose judgment you trust.
+- For the AI-generated-code case specifically: the tool's job is to check whether the code has the surface signals a skeptical reader expects. It is not a substitute for the reader themselves; it is a pre-filter that catches surface failures so the human reader can focus on the substantive dimensions the tool cannot see.
+
+**Framing this release honestly: this is "here is what LLMs think is good code." The open-source release invites skeptics to say "no, it isn't."** That exchange is the substance of the methodology. Build-in-public is not a vibe — it is the mechanism by which the tool's blind spots get surfaced.
+
+## Other failure modes (known)
 
 **Domain mismatch for pure-README rubric application.** The prose rubric is tuned for long-form analytical writing. Short install-focused READMEs will score low on criteria like `counterargument_handling` and `integrative_reasoning` even when the README is well-written for its genre. This is known; the intent is for users to either swap in a README-specific rubric via `--rubric` or interpret those scores as N/A.
 

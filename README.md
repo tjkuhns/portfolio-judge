@@ -57,7 +57,7 @@ Model shortcuts: `--model sonnet | opus | haiku | gpt-4.1 | gpt-5 | gemini | gem
 - **Grounding** (`src/portfolio_judge/grounding.md`) — 2025-26 hiring heuristics distilled from Hamel Husain, Shreya Shankar, Eugene Yan, Chip Huyen, Simon Willison, and Anthropic's candidate-AI guidance.
 - **Model-agnostic** — Anthropic / OpenAI / Google Gemini supported via thin adapters (no `litellm`, no LangChain). `--model` picks the provider; provider defaults are Sonnet, GPT-4.1, Gemini 2.0 Flash.
 
-Full methodology: [`evidence/methodology.md`](evidence/methodology.md). Calibration state per component: [`evidence/calibration_state.md`](evidence/calibration_state.md). Research sources: [`evidence/research_sources.md`](evidence/research_sources.md).
+Full methodology: [`evidence/methodology.md`](evidence/methodology.md). **Start with the ["What this tool does NOT measure"](evidence/methodology.md#what-this-tool-does-not-measure) section — the tool cannot distinguish code that is actually good from code that merely looks good, and that's important before citing any score.** Calibration state per component: [`evidence/calibration_state.md`](evidence/calibration_state.md). Research sources: [`evidence/research_sources.md`](evidence/research_sources.md). Roadmap: [`ROADMAP.md`](ROADMAP.md).
 
 ## Customize
 
