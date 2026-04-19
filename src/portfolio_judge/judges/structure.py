@@ -23,7 +23,6 @@ import subprocess
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-
 SEVERITY_CRITICAL = "critical"
 SEVERITY_MODERATE = "moderate"
 SEVERITY_COSMETIC = "cosmetic"

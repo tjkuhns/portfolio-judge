@@ -24,7 +24,6 @@ from portfolio_judge.core.llm import Provider
 from portfolio_judge.core.rubric import DraftScore, Rubric, load_rubric
 from portfolio_judge.core.scorer import score_artifact
 
-
 CODE_INSTRUCTIONS = """You are grading Python source code. Grade the code \
 itself — readability, structure, documentation, error handling, testability — \
 not the problem it solves. Do not penalize the code for being short (a clean \

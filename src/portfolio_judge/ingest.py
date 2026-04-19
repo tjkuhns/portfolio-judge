@@ -18,7 +18,6 @@ from pathlib import Path
 
 import httpx
 
-
 MAX_DOC_FILES = 5
 MAX_CODE_FILES = 5
 MAX_PER_FILE_BYTES = 40_000  # ~10k lines of code or ~6k words of prose

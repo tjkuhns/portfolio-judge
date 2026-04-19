@@ -29,7 +29,6 @@ from portfolio_judge.judges import code as code_judge
 from portfolio_judge.judges import prose as prose_judge
 from portfolio_judge.judges.structure import StructuralReport, scan_directory
 
-
 ROLE_DESCRIPTIONS = {
     "applied-ai": "Applied AI Engineer / Agentic Engineering",
     "fde": "Forward Deployed Engineer",

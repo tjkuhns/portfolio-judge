@@ -23,7 +23,6 @@ from typing import Any
 from portfolio_judge.core.llm import Provider, resolve_provider
 from portfolio_judge.core.rubric import CriterionScore, DraftScore, Rubric
 
-
 DEFAULT_SYSTEM_PROMPT = """You are an editorial judge evaluating an artifact \
 against a published rubric. For each criterion:
 

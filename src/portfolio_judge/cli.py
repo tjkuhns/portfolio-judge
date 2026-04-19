@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 from rich.console import Console
 
 from portfolio_judge import __version__
-from portfolio_judge.core.llm import MissingAPIKey, resolve_provider
+from portfolio_judge.core.llm import MissingAPIKey
 from portfolio_judge.judges import code as code_judge
 from portfolio_judge.judges import prose as prose_judge
 from portfolio_judge.judges.structure import scan_directory

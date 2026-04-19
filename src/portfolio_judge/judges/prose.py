@@ -19,7 +19,6 @@ from portfolio_judge.core.llm import Provider
 from portfolio_judge.core.rubric import DraftScore, Rubric, load_rubric
 from portfolio_judge.core.scorer import score_artifact
 
-
 PROSE_INSTRUCTIONS = """You are grading analytical technical writing — a blog \
 post, architecture doc, or methodology writeup — produced as part of an AI \
 engineering portfolio. Grade the prose itself, not the underlying technical \
