@@ -49,13 +49,15 @@ The ranking matched the builder's subjective assessment of which files received 
 
 ## Persona orchestration + synthesis
 
-**N=1 dogfood, not calibrated against hiring outcomes.** The four reviewer personas were run fresh-context against the Explodable repo on 2026-04-19. All three distinct persona runs (recruiter, Applied AI HM, FDE / Solutions HM) advanced the portfolio with specific evidence citations. The three verdicts converged on percentile estimates of top 5–15% for Applied AI / DevRel roles at evals-adjacent AI-native mid-tier companies.
+**N=1 dogfood, not calibrated against hiring outcomes.** The full `portfolio-judge review` pipeline was run against the builder's own portfolio (Explodable) on 2026-04-19. All four personas (recruiter, Applied AI HM, FDE / Solutions HM, DevRel HM) advanced the portfolio with specific evidence citations; the synthesizer produced a verdict of "ADVANCE TO PHONE SCREEN" with a 90–95th percentile estimate for Applied AI Engineer roles. See the verbatim output in [`../examples/explodable_full_review/`](../examples/explodable_full_review/).
+
+**That 90–95 score is compromised.** Explained in detail at [`../calibration/README.md#the-self-referential-calibration-problem--disclosed-openly`](../calibration/README.md#the-self-referential-calibration-problem--disclosed-openly). Summary: the personas were designed by the builder while reviewing that same portfolio, so the high score is partial evidence the personas learned what Explodable looks like and then rewarded it — not independent evidence the tool works.
 
 **Three structural limits on this signal:**
 
 1. **Portfolio-of-origin bias.** The personas were designed *after* seeing the Explodable portfolio. Their prompts naturally tune toward signals that portfolio exhibits.
 2. **No hiring-outcome calibration.** "Advanced to phone screen" is the persona's predicted hiring manager behavior, not an actual hiring outcome. The prediction is grounded in published hiring heuristics, not in outcome data.
-3. **N=1.** One portfolio doesn't validate a methodology.
+3. **N=1 on portfolio-shaped targets.** Phase 1 calibration against 10 external repos ([`../calibration/`](../calibration/)) discriminates at extremes (rejects frameworks, rejects hobbyist attempts) but does not establish within-category differentiation, because Explodable is the only portfolio-shaped target in the sample.
 
 **What community feedback would close.** Running this orchestrator on portfolios whose authors have actual hiring outcome data (got interviewed / got rejected / got hired for role X at company Y) and comparing the orchestrator's verdict to the outcome. At N >> 10 with outcome data, this becomes a calibration signal rather than a dogfood. Contributions welcomed.
 

@@ -11,7 +11,7 @@
 
 ## Why this exists
 
-I've been building evaluated AI systems while hunting for an Applied AI Engineering role. To validate my own portfolio I built this — using the same LLM-as-judge methodology I'd already [calibrated](https://github.com/tjkuhns/explodable/blob/main/docs/eval-methodology.md) for analytical writing (ρ = 0.841 against a 7-model editorial panel at the panel's own ceiling, with the post-hoc outlier-drop limit disclosed).
+I've been building evaluated AI systems while hunting for an Applied AI Engineering role. To validate my own portfolio I built this — using the same LLM-as-judge methodology I'd already [calibrated on a prior project](https://github.com/tjkuhns/explodable/blob/main/docs/eval-methodology.md) (ρ = 0.841 against a 7-model editorial panel on analytical writing). **That number applies to the prior project, not to portfolio-judge.** portfolio-judge inherits the methodology; its generalized rubrics and multi-persona orchestrator have NOT been independently calibrated. See [`evidence/calibration_state.md`](evidence/calibration_state.md).
 
 The honest gap in this methodology is the lack of human-review calibration. Open-sourcing because running this on your portfolio and telling me where the verdicts are wrong is the fastest way to close that gap.
 
@@ -64,7 +64,7 @@ Model shortcuts: `--model sonnet | opus | haiku | gpt-4.1 | gpt-5 | gemini | gem
 
 ## Example output
 
-[`examples/explodable_full_review/`](examples/explodable_full_review/) — verbatim output from a full four-persona review run against [Explodable](https://github.com/tjkuhns/explodable). Headline verdict: *ADVANCE TO PHONE SCREEN, 90–95th percentile for Applied AI Engineer roles*. See the [examples README](examples/README.md) for prose and code judge outputs too.
+[`examples/explodable_full_review/`](examples/explodable_full_review/) — verbatim output from a full four-persona review run against [Explodable](https://github.com/tjkuhns/explodable), the builder's own portfolio. The tool produced *ADVANCE TO PHONE SCREEN, 90–95th percentile for Applied AI Engineer roles*. **Read that score with the [self-referential calibration problem](calibration/README.md#the-self-referential-calibration-problem--disclosed-openly) in mind** — the personas were designed while the builder was reviewing that same portfolio, so the score is partial evidence the personas learned what Explodable looks like and then rewarded it, not independent evidence the tool works. See [`examples/README.md`](examples/README.md) for prose and code judge outputs too.
 
 ## How it works
 
