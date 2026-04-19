@@ -1,0 +1,160 @@
+# Default prose rubric for portfolio-judge
+#
+# Target: long-form analytical technical writing — blog posts, methodology
+# writeups, architecture docs, long-form READMEs. The rubric is generalized
+# from Explodable's consulting-essay rubric (ρ = 0.841 calibration against
+# a 7-model editorial panel) but the criteria here target what hiring
+# managers for Applied AI / FDE / Solutions / DevRel roles look for in
+# candidate writing (per Husain, Shankar, Yan, Huyen; see evidence/
+# research_sources.md).
+#
+# For short-form README-only writing this rubric is partly ill-fit — some
+# criteria (counterargument, integrative reasoning) don't apply to
+# install-instruction documents. In that case either use the structural
+# scanner alone, or swap in a README-specific rubric via --rubric.
+
+id: prose_default
+version: "0.1.0"
+description: >
+  Analytical technical writing quality — for portfolio blog posts,
+  architecture writeups, and methodology docs. Ten criteria, scored 1–5.
+
+criteria:
+  - id: thesis_clarity
+    name: Thesis clarity in the opening
+    weight: 1.5
+    what_it_measures: >
+      Whether the opening names a specific, defensible claim that frames
+      the whole piece — not background, not throat-clearing, not
+      "in this post I will discuss…". Expert readers form expertise
+      judgments within seconds; the opening is disproportionately
+      load-bearing (Ambady-Rosenthal thin-slicing, r = 0.39 across 38 studies).
+    scale:
+      1: Opens with background, context-setting, or "in this post..."; the main claim appears late or never.
+      3: Main claim appears in the first paragraph but is preceded by setup.
+      5: First sentence names a specific, defensible claim that frames the entire piece.
+
+  - id: problem_framing
+    name: Names the real problem before the solution
+    what_it_measures: >
+      Whether the piece articulates what's hard about the problem —
+      why a naive approach fails — before presenting its solution. FDE /
+      Solutions hiring specifically reward "problem framing before tech."
+      Pieces that skip to the implementation read as tutorials, not analysis.
+    scale:
+      1: Jumps straight to the solution; the reader has to infer what problem is being solved.
+      3: Names the problem but doesn't articulate what's hard about it.
+      5: States the problem, names what's hard about it, and motivates why a naive approach fails.
+
+  - id: specific_evidence
+    name: Evidence specificity (the Goldilocks zone)
+    what_it_measures: >
+      Whether the piece deploys named tools, specific numbers, concrete
+      examples, and direct links — enough detail to signal practitioner
+      status without citation-dumping. Generic appeals ("studies show,"
+      "best practice," "many teams") fail the insider test.
+    scale:
+      1: Generic appeals ("studies show", "best practice", "many teams"); no named tools or specific numbers.
+      3: Some specific data points or examples but not consistently deployed.
+      5: Named tools, specific numbers, concrete examples, direct links — enough detail to signal insider knowledge without over-explaining.
+
+  - id: pedagogical_instinct
+    name: Teaches something a reader can steal
+    what_it_measures: >
+      Whether a practitioner reader walks away with a specific technique,
+      pattern, or frame they can apply to their own work. FDE / DevRel
+      hiring weights this heavily — pieces that only perform expertise
+      (vs. transferring it) don't convert readers.
+    scale:
+      1: Describes what was done without extractable takeaways; the reader learns nothing transferable.
+      3: Teaches one or two techniques but doesn't frame them so a practitioner can apply them elsewhere.
+      5: Multiple concrete, transferable techniques a practitioner can steal and use on a different problem.
+
+  - id: methodology_disclosure
+    name: Discloses methodology limits where applicable
+    weight: 1.5
+    what_it_measures: >
+      If the piece makes measurement claims (numbers, deltas, scores), it
+      discloses N, confidence interval, calibration state, what was NOT
+      measured, and what would invalidate the result. If no measurement
+      claims are made, score 3 as neutral. Applied-AI and methodology-
+      literate reviewers call this out as the single rarest signal
+      (Husain on "disclosed limits are credibility multipliers").
+    scale:
+      1: Makes measurement claims with no N, no CI, no calibration state, no disclosed limits.
+      3: Some caveats mentioned but not in the same location as the headline numbers, or not specific.
+      5: Every measurement claim carries N, CI or range, calibration state, and a "what would invalidate this" — in the same location as the number.
+
+  - id: integrative_reasoning
+    name: Holds opposing models in tension
+    what_it_measures: >
+      Whether the piece identifies two models that seem mutually exclusive,
+      then synthesizes a resolution — rather than picking a side or treating
+      the dichotomy as settled. Integrative thinking (Roger Martin) is a
+      sharp published diagnostic of senior analytical expertise.
+    scale:
+      1: Binary framing (X good, Y bad) or single-perspective analysis with no acknowledgment of alternatives.
+      3: Acknowledges complexity but defaults to one side without synthesis.
+      5: Identifies two models in genuine tension, then synthesizes a resolution that contains elements of both.
+
+  - id: counterargument_handling
+    name: Addresses the strongest objection
+    what_it_measures: >
+      Whether the piece anticipates the reader's strongest objection,
+      steelmans it, and addresses it with evidence. Pre-empting the
+      hardest challenge increases credibility rather than undermining it
+      (Harvard Kennedy School policy memo standard).
+    scale:
+      1: No acknowledgment of alternative views or limitations.
+      3: Mentions a potential objection but dismisses it quickly without steelmanning.
+      5: Anticipates the reader's strongest objection, steelmans it, and addresses it with specific evidence.
+
+  - id: structural_coherence
+    name: Headings function as standalone argument
+    what_it_measures: >
+      Whether reading only the headings reconstructs the core argument.
+      BCG action-title standard: each heading is a complete, specific
+      sentence-case assertion, not a topic label. Headings that say
+      "Background" / "Analysis" / "Conclusion" describe containers, not arguments.
+    scale:
+      1: Topic-label headings ("Background", "Analysis", "Conclusion") or no headings at all.
+      3: Headings hint at content but don't convey the argument.
+      5: Reading only the headings reconstructs the core argument; each heading is a complete, specific assertion.
+
+  - id: register_alignment
+    name: Technical register without marketing voice
+    weight: 1.5
+    what_it_measures: >
+      Whether the piece writes for a technical reader without marketing
+      adjectives, overclaiming, or "revolutionary/paradigm/novel"
+      language. Applied-AI / FDE reviewers explicitly flag marketing
+      register as a credibility killer. No sycophantic hype, no unfounded superlatives.
+    scale:
+      1: Marketing voice, hype adjectives ("revolutionary", "novel", "cutting-edge"), unsupported superlatives.
+      3: Mostly technical but occasional marketing phrases or overclaim.
+      5: Sustained technical register; claims are measured and load-bearing; no hype.
+
+  - id: conclusion_advances
+    name: Conclusion advances beyond summary
+    what_it_measures: >
+      Whether the conclusion delivers a novel implication, actionable
+      next step, or reframing that couldn't have been stated at the
+      outset. The argument should have moved. Summary-only conclusions
+      fail because they add no information relative to the body.
+    scale:
+      1: Restates what was already said; no new synthesis.
+      3: Summarizes key points with modest reframing.
+      5: Delivers a novel implication, actionable next step, or reframing that couldn't have been stated at the outset.
+
+scoring_guidance:
+  veto_rule: >
+    A score of 1 on ANY criterion is a potential veto regardless of total.
+    Flag for manual review.
+  pass_threshold: 40
+  notes: >
+    Calibration: this rubric inherits methodology from the consulting-essay
+    rubric in github.com/tjkuhns/explodable (ρ = 0.841 at panel ceiling,
+    with disclosed post-hoc outlier-drop limit). It has NOT been
+    independently re-calibrated in this generalized form; community
+    feedback on specific verdicts is the calibration mechanism this
+    release is soliciting. See evidence/calibration_state.md.

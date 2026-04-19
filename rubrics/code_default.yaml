@@ -1,0 +1,179 @@
+# Default code rubric for portfolio-judge
+#
+# 6-criterion rubric for evaluating subjective Python code quality.
+# Designed to complement linters (Ruff, Black, Pylint) by covering
+# dimensions automated tools can't assess: readability, naming,
+# architecture, documentation intent, error handling philosophy,
+# and testability.
+#
+# Grounded in Clean Code (Martin), A Philosophy of Software Design
+# (Ousterhout), PEP 8/257, Google Python Style Guide, Buse & Weimer
+# (IEEE TSE 2010) readability research.
+#
+# Ported from github.com/tjkuhns/explodable/blob/main/config/rubrics/
+# python_code_quality.yaml and proposed upstream to Braintrust
+# autoevals as Issue #185.
+
+id: code_default
+version: "0.1.0"
+description: Subjective Python code quality — dimensions linters can't catch.
+
+criteria:
+  - id: naming_clarity
+    name: Naming clarity
+    weight: 1.5
+    what_it_measures: >
+      Do identifiers reveal intent? Are names consistent within the
+      module's domain vocabulary? Are abbreviations avoided or
+      universally understood? Does name length scale with scope
+      (short for tight loops, descriptive for module-level)?
+    scale:
+      1: >
+        Single-letter variables in non-trivial scopes. Generic names
+        (data, result, temp, val) dominate. Inconsistent naming
+        conventions (camelCase mixed with snake_case). Reader must
+        read the implementation to understand what a function does.
+      3: >
+        Most names communicate intent. A few generic names remain
+        in non-obvious contexts. Naming conventions are consistent.
+        Function names describe what, not how.
+      5: >
+        Every identifier reads as documentation. Domain vocabulary
+        is consistent and precise. Function names are verbs that
+        describe the contract. A reader unfamiliar with the codebase
+        can navigate by names alone.
+
+  - id: readability_structure
+    name: Readability and structure
+    weight: 1.5
+    what_it_measures: >
+      Can a competent Python developer read this file top-to-bottom
+      and understand the flow without backtracking? Are functions at
+      a consistent abstraction level? Is control flow straightforward
+      or nested beyond easy comprehension?
+    scale:
+      1: >
+        Functions mix abstraction levels freely. Deeply nested
+        conditionals (3+ levels). Long functions (50+ lines) with
+        multiple responsibilities. No visual separation between
+        logical sections.
+      3: >
+        Functions are mostly at one abstraction level. Nesting is
+        manageable (≤2 levels typical). Logical sections visually
+        separated. A few functions longer than ideal but each has
+        a clear single purpose.
+      5: >
+        Each function does one thing at one abstraction level.
+        Control flow is linear or uses early returns to flatten
+        nesting. The file reads like a well-organized document —
+        top-level structure visible at a glance, details on demand.
+
+  - id: architectural_fit
+    name: Architectural fit
+    what_it_measures: >
+      Does the code exhibit good module boundaries? Are classes and
+      functions appropriately granular — deep modules (Ousterhout)
+      with simple interfaces hiding complex implementations? Is
+      coupling between components minimized? Does the code follow
+      single-responsibility at the module level?
+    scale:
+      1: >
+        God class or god function. Tight coupling between modules
+        through shared mutable state. Circular dependencies.
+        Interface exposes implementation details. Changing one
+        function requires changing five others.
+      3: >
+        Reasonable module boundaries. Most classes/functions have
+        a clear responsibility. Some coupling exists but is
+        manageable. Interfaces mostly hide implementation.
+      5: >
+        Clean module boundaries with deep modules — simple interfaces
+        hiding complex implementations. Dependencies flow one direction.
+        Each component can be understood, tested, and modified
+        independently.
+
+  - id: documentation_quality
+    name: Documentation quality
+    what_it_measures: >
+      Do docstrings explain the contract (what, not how)? Do comments
+      explain WHY, not WHAT? Is the comment-to-code ratio appropriate
+      — not over-documented or under-documented? Are type hints
+      present and accurate?
+    scale:
+      1: >
+        No docstrings. Comments either absent or explain what code
+        does line-by-line. No type hints. A reader must reverse-
+        engineer the interface contract from the implementation.
+      3: >
+        Key functions have docstrings explaining purpose and
+        parameters. Comments exist for non-obvious logic. Type
+        hints on public interfaces but incomplete internally.
+      5: >
+        Every public function has a clear docstring explaining the
+        contract, parameters, return value, and notable edge cases.
+        Comments explain only non-obvious decisions (the WHY).
+        Type hints complete and accurate.
+
+  - id: error_handling
+    name: Error handling and edge cases
+    what_it_measures: >
+      Are failure modes handled explicitly rather than silently
+      swallowed? Are exceptions specific? Is input validated at
+      system boundaries? Does the code fail loudly and early rather
+      than propagating bad state?
+    scale:
+      1: >
+        Bare except clauses that swallow all exceptions. No input
+        validation. Errors silently produce wrong results instead
+        of failing. Functions return None on error with no indication
+        of what went wrong.
+      3: >
+        Most error cases handled with specific exceptions. Input
+        validation exists at major entry points. Some edge cases
+        documented. A few broad exception handlers remain but don't
+        silently swallow important errors.
+      5: >
+        Every failure mode is explicitly considered. Exceptions are
+        specific and carry context. Input validated at system
+        boundaries. Functions fail fast with clear error messages.
+        No silent swallowing.
+
+  - id: testability
+    name: Testability and API design
+    what_it_measures: >
+      Could a developer write unit tests for this code without
+      extensive mocking? Are dependencies injectable? Are side
+      effects isolated and observable? Do functions prefer pure
+      computation over hidden state mutation? Is the public API
+      minimal and well-defined?
+    scale:
+      1: >
+        Functions depend on global state, environment variables
+        read inline, or hardcoded external services. Testing
+        requires mocking half the module. Side effects hidden
+        inside pure-looking functions.
+      3: >
+        Most functions could be tested with reasonable setup.
+        Dependencies mostly passed as parameters. A few functions
+        mix computation with I/O but core logic is extractable.
+      5: >
+        Pure functions dominate. Dependencies are injected. Side
+        effects isolated in clearly-marked boundary functions.
+        Testing requires minimal or no mocking. Public API is
+        explicit, minimal, and stable.
+
+scoring_guidance:
+  veto_rule: >
+    A score of 1 on ANY criterion is a potential veto regardless of total.
+    Flag for manual review. Additionally, the following code patterns
+    trigger automatic flags independent of rubric scoring:
+    `eval(...)` on untrusted input (security); bare `except:` (swallows
+    system exits); overly broad `except Exception:` without re-raise.
+  pass_threshold: 24  # 4/5 average across 6 criteria
+  notes: >
+    This rubric has NOT been calibrated against human reviewers. The
+    methodology was transferred in an afternoon from the ρ = 0.841
+    calibrated essay judge (github.com/tjkuhns/explodable) as an
+    ablation demonstration. Community feedback on specific verdicts is
+    the calibration mechanism this release is soliciting. See
+    evidence/calibration_state.md.
